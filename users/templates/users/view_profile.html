@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ image }}" alt="Profile Picture">
+        <div class="media-body">
+         Full name:<h2 class="account-heading">{{ first_name }} {{last_name }}</h2>
+         Email:<p class="text-secondary">{{ email }}</p>
+         Username: <p class="text-secondary">{{ username }}</p>
+         Date of birth: <p class="text-secondary">{{ dateofbirth }}</p>
+        </div>
+        <a class="btn btn-outline-info" href="{% url 'profile' %}">Edit</a>
+      </div>
+{% endblock %}
