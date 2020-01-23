@@ -159,4 +159,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
 
-import django_heroku.settings(locals())
+django_heroku.settings(locals())
