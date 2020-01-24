@@ -42,7 +42,7 @@ class PostDetailView(DetailView):
     """Options to Update, delete the post"""
     if user.is_authenticated:
         model = Posts
-        success_url = 'blog/home.html'
+        success_url = '/blog'
     else:
         redirect('/blog')
 
