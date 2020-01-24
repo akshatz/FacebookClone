@@ -47,7 +47,7 @@ class PostDetailView(DetailView):
         redirect('/blog')
 
     def get_queryset(self):
-        return Posts.objects.filter(author=self.request.user).order_by('date_posted')
+        return Posts.objects.all().order_by('date_posted')
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self) \
