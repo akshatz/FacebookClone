@@ -98,9 +98,8 @@ def search(request):
     """Search feature used to search friends """
     if request.method == 'GET':
         query = request.GET.get('q')
-        if query is not None and request.user:
-            results = User.objects.filter(Q(first_name=query) | Q(last_name=query))
-            # print(request.user.id)
+        if query:
+            results = User.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).distinct()
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
         return render(request, 'base.html')
 
