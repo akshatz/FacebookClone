@@ -1,11 +1,9 @@
 import random
-
 from django.contrib import messages
 from django.core.handlers import exception
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.deprecation import MiddlewareMixin
-
 from django_project.settings import AUTH_USER_MODEL
 from friend.models import Friend
 from .models import Posts
@@ -30,7 +28,7 @@ def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
     if request.user.is_authenticated:
         context = {
-            'posts': Posts.objects.all().order_by('-date_posted'),
+            'posts': Posts.objects.filter(author=request.user).order_by('-date_posted'),
             'media': MEDIA_URL,
         }
         return render(request, 'blog/home.html', context)
@@ -44,14 +42,13 @@ class PostDetailView(DetailView):
         model = Posts
         success_url = '/blog'
     else:
-        redirect('/blog')
+        redirect('users/login.html')
 
     def get_queryset(self):
         return Posts.objects.all().order_by('date_posted')
 
     def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self) \
-            .get_context_data(**kwargs)
+        context = super(PostDetailView, self).get_context_data(**kwargs)
         context['media'] = MEDIA_URL
         return context
 
@@ -94,7 +91,8 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             messages.success(self.request, 'You have successfully updated the post')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
         except:
-            messages.error(self.request, 'You have successfully updated the post')
+            # messages.error(self.request, "You have  not updated the post")
+            messages.error(self.request, 'Document deleted.')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
 
     def test_func(self):
