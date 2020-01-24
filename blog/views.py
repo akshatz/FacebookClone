@@ -94,7 +94,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             messages.success(self.request, 'You have successfully updated the post')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
         except:
-            messages.success(self.request, 'You have successfully updated the post')
+            messages.error(self.request, 'You have successfully updated the post')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
 
     def test_func(self):
