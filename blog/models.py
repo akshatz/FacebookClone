@@ -34,11 +34,11 @@ class Posts(models.Model):
     image,
     video
     """
-
+    
     title = models.CharField(max_length=100, verbose_name="Title:")
     content = models.TextField(verbose_name="Content:")
     date_posted = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author_name')
     image = models.ImageField(upload_to="profile_pics", null=True, blank=True, verbose_name="Image:")
     date_modified = models.DateTimeField(auto_now=True, blank=True)
     video = models.FileField(upload_to='videos/',blank=True, null=True, verbose_name="video limited to mp4:")

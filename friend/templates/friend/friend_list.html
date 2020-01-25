@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block content %}
-<h1>Status of friend requests(sent by me)</h1>
+<h2>Status of friend requests sent by me</h2>
 <table border="1px solid #fff" class = "friends">
     <tr>
         <th>Profile Picture</th>
@@ -16,11 +16,12 @@
         <td>
             <ul>
                 <li>
-                    <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a>
+                    <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a> ({{ result.to_user.email }})
                 </li>
-                <li>{{ result.to_user.email }}</li>
+
             </ul>
         </td>
+        {{result.status}}
         {% if result.status == "accepted" %}
         <td>Accepted</td>
         {% elif result.status == "pending" %}
@@ -32,7 +33,7 @@
     {% endfor %}
     </table>
 <p></p>
-    <h1>Status of friend request sent by others:</h1>
+    <!-- <h1>Status of friend request sent by others:</h1>
     <table border="1px solid #fff" class = "friends">
         <tr>
             <th>Profile Picture</th>
@@ -64,6 +65,6 @@
         {% endif %}
         </tr>
         {% endfor %}
-    </table>
+    </table> -->
 
 {% endblock %}

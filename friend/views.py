@@ -88,5 +88,7 @@ def add_friend(request, pk):
 
 
 def sharing_of_post(request):
-    if Friend.status == 'accepted':
-        return render(request,'blog/home.html')
+    if Share.is_friend == True:
+        if Friend.status == "accepted":
+            Share.objects.all()
+            return render(request,'blog/home.html')
