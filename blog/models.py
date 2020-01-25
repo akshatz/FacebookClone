@@ -70,11 +70,3 @@ class Posts(models.Model):
     def photo_url(self):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
-
-    # class PostManager(models.Manager):
-    #     def active(self, *args, **kwargs):
-    #         # Post.objects.all() = super(PostManager, self).all()
-    #         return super(self, self).filter(draft=False).filter(publish__lte=timezone.now())
-
-
-
