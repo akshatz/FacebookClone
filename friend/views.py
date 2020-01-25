@@ -20,9 +20,7 @@ User = get_user_model()
 def friend_list(request):
     context = {
         'results_from_user': Friend.objects.filter(from_user=request.user)
-        # 'results_to_user': Friend.to_user
     }
-    # print(context)
     return render(request, 'friend/friend_list.html', context)
 
 
@@ -49,14 +47,17 @@ def accept_friend_request(request, uidb64, status):
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
         friends = Friend.objects.get(id = request.user.id, to_user=Friend.to_user.id)
         for f in friends:
-            if f:
-                f.status = "accepted"
+            if f.status == "accepted":
                 f.save()
+                print(f.status)
                 return render(request, 'friend/friend_list.html')
             else:
-                f.status = "rejected"
-                f.save()
+                f.status ="rejected"
+                f.update()
+                print(f.status)
                 redirect(reverse_lazy('list'))
+            # else: 
+            #     f.status = 'pending'
     except(FieldError, AttributeError):
         return render(request, 'blog/base.html')
 
