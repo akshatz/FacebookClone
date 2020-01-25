@@ -34,7 +34,7 @@ class Posts(models.Model):
     image,
     video
     """
-    
+    is_friend = models.BooleanField(default=False)
     title = models.CharField(max_length=100, verbose_name="Title:")
     content = models.TextField(verbose_name="Content:")
     date_posted = models.DateTimeField(auto_now_add=True)
