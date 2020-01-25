@@ -5,7 +5,7 @@ from django.urls import reverse
 from PIL import Image
 from django_project.settings import AUTH_USER_MODEL
 import uuid
-
+# import friend.models.Share
 
 class User(AbstractUser):
     """
@@ -15,7 +15,6 @@ class User(AbstractUser):
     """
     email = models.EmailField(max_length=255, unique=True)
     dateofbirth = models.DateField(null=True)
-    # friend_id = models.ManyToManyField('self')
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -34,7 +33,7 @@ class Posts(models.Model):
     image,
     video
     """
-    is_friend = models.BooleanField(default=False)
+
     title = models.CharField(max_length=100, verbose_name="Title:")
     content = models.TextField(verbose_name="Content:")
     date_posted = models.DateTimeField(auto_now_add=True)

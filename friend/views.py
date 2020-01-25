@@ -47,12 +47,17 @@ def accept_friend_request(request, uidb64, status):
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
         friends = Friend.objects.get(id = request.user.id, to_user=Friend.to_user.id)
         for f in friends:
-            if f.status == 'accepted':
+            if f.status == "accepted":
                 f.save()
+                print(f.status)
                 return render(request, 'friend/friend_list.html')
-            elif f.status == 'rejected':
-                f.save()
+            else:
+                f.status ="rejected"
+                f.update()
+                print(f.status)
                 redirect(reverse_lazy('list'))
+            # else: 
+            #     f.status = 'pending'
     except(FieldError, AttributeError):
         return render(request, 'blog/base.html')
 
