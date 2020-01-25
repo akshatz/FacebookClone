@@ -30,7 +30,7 @@ def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
     if request.user.is_authenticated:
         context = {
-            'posts': Posts.objects.all().order_by('-date_posted'),
+            'posts': Posts.objects.filter(author=request.user).order_by('-date_posted'),
             'media': MEDIA_URL,
         }
         return render(request, 'blog/home.html', context)
@@ -47,11 +47,10 @@ class PostDetailView(DetailView):
         redirect('/blog')
 
     def get_queryset(self):
-        return Posts.objects.all().order_by('date_posted')
+        return Posts.objects.filter(author=request.user).order_by('date_posted') and Share.objects.all()
 
     def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self) \
-            .get_context_data(**kwargs)
+        context = super(PostDetailView, self).get_context_data(**kwargs)
         context['media'] = MEDIA_URL
         return context
 
