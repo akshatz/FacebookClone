@@ -21,7 +21,6 @@
 
             </ul>
         </td>
-        {{result.status}}
         {% if result.status == "accepted" %}
         <td>Accepted</td>
         {% elif result.status == "pending" %}
@@ -32,7 +31,6 @@
     </tr>
     {% endfor %}
     </table>
-<p></p>
     <!-- <h1>Status of friend request sent by others:</h1>
     <table border="1px solid #fff" class = "friends">
         <tr>
