@@ -66,14 +66,14 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     """
     fields = ['title', 'content', 'image', 'video']
     model = Posts
-    success_url = '/blog'
+    success_url = '/blog/'
 
     def form_valid(self, form):
         try:
             form.instance.author = self.request.user
             return super(PostCreateView, self).form_valid(form)
         except:
-            return redirect(reverse_lazy('home'))
+            return redirect(reverse_lazy('blog'))
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

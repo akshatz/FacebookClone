@@ -52,10 +52,12 @@ def accept_friend_request(request, uidb64, status):
             if f:
                 f.status = "accepted"
                 f.save()
+                print(f.status)
                 return render(request, 'friend/friend_list.html')
             else:
                 f.status = "rejected"
                 f.save()
+                print(f.status)
                 redirect(reverse_lazy('list'))
     except(FieldError, AttributeError):
         return render(request, 'blog/base.html')
