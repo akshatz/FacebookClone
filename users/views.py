@@ -73,7 +73,7 @@ def users_list(request):
     context = {
         'users': users
     }
-    return render(request, "home.html", context)
+    return render(request, "blog/home.html", context)
 
 
 def profile(request):
@@ -102,7 +102,7 @@ def search(request):
             results = User.objects.filter(Q(username=query) | Q(first_name=query) | Q(last_name=query))
             # print(request.user.id)
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
-        return render(request, 'base.html')
+        return render(request, 'blog/base.html')
 
 def search_profile(request, pk):
     """User search Profile"""
