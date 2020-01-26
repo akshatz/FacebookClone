@@ -18,7 +18,6 @@
                 <li>
                     <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a> ({{ result.to_user.email }})
                 </li>
-
             </ul>
         </td>
         {% if result.status == "accepted" %}
@@ -31,39 +30,4 @@
     </tr>
     {% endfor %}
     </table>
-<p></p>
-    <!-- <h1>Status of friend request sent by others:</h1>
-    <table border="1px solid #fff" class = "friends">
-        <tr>
-            <th>Profile Picture</th>
-            <th>Details</th>
-            <th>Status</th>
-        </tr>
-    {% for result in results_from_user %}
-        {% if result.from_user == result.to_user %}
-        <tr>{{pass}}</tr>
-        {% endif %}
-        <tr>
-        <td>
-            <img src="{{ result.from_user.profile.image.url }}" class="rounded-circle account-img"/>
-        </td>
-        <td>
-            <ul>
-                <li>
-                    <a href="{% url 'profile' result.from_user.id %}">{{result.from_user.first_name}} {{result.from_user.last_name }}</a>
-                </li>
-                <li>{{ result.from_user.email }}</li>
-            </ul>
-        </td>
-        {% if result.status == "accepted" %}
-            <td>Accepted</td>
-        {% elif result.status == "pending" %}
-            <td>Pending</td>
-        {% elif result.status == "rejected" %}
-            <td>Rejected</td>
-        {% endif %}
-        </tr>
-        {% endfor %}
-    </table> -->
-
 {% endblock %}
