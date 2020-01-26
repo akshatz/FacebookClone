@@ -50,9 +50,7 @@
         <td>
             <ul>
                 <li>
-                    <a href="{% url 'profile' result.from_user.id %}">{{result.from_user.first_name}} {{result.from_user.last_name }}</a>
-                </li>
-                <li>{{ result.from_user.email }}</li>
+                    <a href="{% url 'profile' result.from_user.id %}">{{result.from_user.first_name}} {{result.from_user.last_name }}</a>({{ result.from_user.email }})
             </ul>
         </td>
         {% if result.status == "accepted" %}
