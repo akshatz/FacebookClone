@@ -14,7 +14,7 @@
             <img src="{{result.to_user.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
         </td>
         <td>
-            <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a> ({{result.to_user.email}})
+            <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a> ({{ result.to_user.email }})
         </td>
         {% if result.status == "accepted" %}
         <td>Accepted</td>
