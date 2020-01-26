@@ -7,8 +7,7 @@
 <table border="1px solid #fff" class= "friends">
     <tr>
         <th>Profile Picture</th>
-        <th>Name</th>
-        <th>Email Address</th>
+        <th>Details</th>
         <th>Add friend</th>
     </tr>
     {% for result in results %}
@@ -19,8 +18,7 @@
         <td>
             <img src="{{result.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
         </td>
-        <td><a href="{% url 'profile' result.id %}">{{result.first_name}} {{ result.last_name }}</a></td>
-        <td>{{result.email}}</td>
+        <td><a href="{% url 'profile' result.id %}">{{result.first_name}} {{ result.last_name }}</a>{{result.email}}</td>
         <td>
             <a href="{% url 'addfriend'  result.id %}">Add Friend</a>
         </td>
