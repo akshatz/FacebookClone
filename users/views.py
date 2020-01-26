@@ -99,9 +99,9 @@ def search(request):
     if request.method == 'GET':
         query = request.GET.get('q')
         if query is not None and request.user:
-            results = User.objects.filter(Q(username=query) | Q(first_name=query) | Q(last_name=query))
-            # print(request.user.id)
+            results = User.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)|Q(email__icontains=query))
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
+            
         return render(request, 'blog/base.html')
 
 def search_profile(request, pk):
