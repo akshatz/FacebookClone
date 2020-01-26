@@ -14,12 +14,7 @@
             <img src="{{result.to_user.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
         </td>
         <td>
-            <ul>
-                <li>
-                    <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a>
-                </li>
-                <li>{{ result.to_user.email }}</li>
-            </ul>
+            <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a>{{ result.to_user.email }}
         </td>
         {% if result.status == "accepted" %}
         <td>Accepted</td>
@@ -31,7 +26,7 @@
     </tr>
     {% endfor %}
     </table>
-<p></p>
+<!-- <p></p>
     <h1>Status of friend request sent by others:</h1>
     <table border="1px solid #fff" class = "friends">
         <tr>
@@ -62,6 +57,6 @@
         {% endif %}
         </tr>
         {% endfor %}
-    </table>
+    </table> -->
 
 {% endblock %}
