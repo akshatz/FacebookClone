@@ -73,7 +73,7 @@ def users_list(request):
     context = {
         'users': users
     }
-    return render(request, "home.html", context)
+    return render(request, "blog/home.html", context)
 
 
 def profile(request):
@@ -101,7 +101,7 @@ def search(request):
         if query:
             results = User.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).distinct()
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
-        return render(request, 'base.html')
+        return render(request, 'blog/base.html')
 
 def search_profile(request, pk):
     """User search Profile"""
