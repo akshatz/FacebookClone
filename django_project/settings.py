@@ -22,14 +22,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'c(i%fn^1j#)@(v+b#42f&_k9h(f=p&iulxz&trl9l8v3nn9@*0'
+SECRET_KEY = 'c(i%fn^1j#)@(v+b#42f&_k9h(f=p&iulxz&trl9l8v3nn9@*0'
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['whispering-cove-19795.herokuapp.com']
+ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -97,8 +98,15 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306'
     }
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd98t129j9nadch',
+#         'USER': 'wkxtlzlqrmaxyk',
+#         'PASSWORD': '39c1eb0ecc7f0b22920d1fea700a05206e37bbab0a6a884a16750aaa52041e5e',
+#         'HOST': 'ec2-54-174-229-152.compute-1.amazonaws.com',
+#         'PORT': '5432',
+# }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -147,7 +155,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_REDIRECT_URL = '/blog/'
 LOGIN_URL = 'login'
 
 # EMAIL BACKENDS
