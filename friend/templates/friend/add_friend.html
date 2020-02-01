@@ -1,3 +1,6 @@
-Hi {{ username }},
-You have sent a friend request from {{ first_name }} {{last_name}}
+Hi {{ user.username }},
+You have a friend request from {{ user.first_name }} {{ user.last_name }}
+<button class="btn btn-success">Confrim Email
 http://{{domain}}{% url 'add_friend_link' uidb64=uid %}
+</button>
+

@@ -42,9 +42,9 @@ class Posts(models.Model):
     image = models.ImageField(upload_to="profile_pics", null=True, blank=True, verbose_name="Image:")
     date_modified = models.DateTimeField(auto_now=True, blank=True)
     video = models.FileField(upload_to='videos/',blank=True, null=True, verbose_name="video limited to mp4:")
-    likes = models.ManyToManyField(User, related_name='likes', blank=True)
+    # likes = models.ManyToManyField(User, related_name='likes', blank=True)
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    draft = models.BooleanField(default=False)
+    # draft = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
