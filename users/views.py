@@ -99,7 +99,7 @@ def search(request):
     if request.method == 'GET':
         query = request.GET.get('q')
         if query is not None and request.user:
-            results = User.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)|Q(email__icontains=query)|Q(username__icontains=query))
+            results = User.objects.filter(Q(email__icontains=query)|Q(username__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query) | Q(first_name__istartswith=query))
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
             
         return render(request, 'blog/base.html')
