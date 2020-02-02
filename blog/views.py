@@ -1,17 +1,12 @@
-import random
-
 from django.contrib import messages
-from django.core.handlers import exception
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.utils.deprecation import MiddlewareMixin
-
-from django_project.settings import AUTH_USER_MODEL
-from friend.models import Friend
+from django_project.settings import AUTH_USER_MODEL as model
 from .models import Posts
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
+from django_project.settings import MEDIA_URL
+from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     ListView,
     DetailView,
@@ -19,8 +14,6 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from django_project.settings import MEDIA_URL
-from django.contrib.auth.decorators import login_required
 
 user = get_user_model()
 
@@ -94,7 +87,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             messages.success(self.request, 'You have successfully updated the post')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
         except:
-            messages.warning(self.request, 'You cannot update the post. Please retry!!!')
+            messages.error(self.request, 'You cannot update the post. Please retry!!!')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
 
     def test_func(self):
@@ -130,5 +123,5 @@ class UserPostListView(ListView):
     ordering = ['-date_posted']
 
     def get_queryset(self):
-        user = get_object_or_404(AUTH_USER_MODEL, username=self.kwargs.get('pk'))
+        user = get_object_or_404(model, username=self.kwargs.get('pk'))
         return Posts.objects.all().order_by('-date_posted')

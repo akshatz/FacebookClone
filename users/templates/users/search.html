@@ -30,7 +30,7 @@
 </table>
 
 {% else %}
-No search results for this query
+<h3>Please try for another user. {{request.GET.q}} not found</h3>
 {% endif %}
 {% endif %}
 {% endblock  %}
