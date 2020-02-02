@@ -14,7 +14,8 @@
           <div class="media-body">
             <div class="article-metadata">
               <p>{{ post.author }} </p>
-              <small class="text-muted">{{ post.date_posted}}</small>
+                <small class="text-muted">{{ post.date_posted }}</small><br>
+                <small class="text-muted">Date Modified:{{ post.date_modified}}</small>
             </div>
 
             <h2><a class="article-title" href="{% url 'post-detail' post.uuid %}">{{ post.title }}</a></h2>

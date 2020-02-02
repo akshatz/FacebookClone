@@ -13,7 +13,8 @@
     <div class="media-body">
       <div class="article-metadata">
         <p>{{ object.author }}</p>
-        <small class="text-muted">{{ object.date_posted }}</small>
+          <small class="text-muted">{{ object.date_posted }}</small><br>
+          <small class="text-muted">Date modified:{{ object.date_modified }}</small>
         {% if object.author == user %}
         <div>
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.uuid %}">Update</a>
