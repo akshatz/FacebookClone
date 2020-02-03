@@ -99,10 +99,16 @@ def search(request):
     if request.method == 'GET':
         query = request.GET.get('q')
         if query is not None and request.user:
-            results = User.objects.filter(Q(email__icontains=query)|Q(username__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query) | Q(first_name__istartswith=query))
+            results = User.objects.filter(Q(email__icontains=query)|
+                                          Q(username__icontains=query)|
+                                          Q(first_name__icontains=query)|
+                                          Q(last_name__icontains=query) |
+                                          Q(first_name__istartswith=query)
+                                          )
+
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
-            
         return render(request, 'blog/base.html')
+
 
 def search_profile(request, pk):
     """User search Profile"""
@@ -115,6 +121,7 @@ def search_profile(request, pk):
             return render(request, 'users/profile.html', dict(u_form=u_form, p_form=p_form))
     else:
         return render(request, 'users/search_profile.html')
+
 
 def profile_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
@@ -132,7 +139,6 @@ def profile_detail(request, pk):
         return render(request, 'users/search_profile.html', context)
 
 
-
 @login_required(login_url='/login')
 def home(request):
     """Display all the post of friends and own posts on the dashboard"""
@@ -141,4 +147,3 @@ def home(request):
         'media': MEDIA_URL
     }
     return render(request, 'blog/home.html', context)
-
