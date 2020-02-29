@@ -19,8 +19,8 @@ User = get_user_model()
 @login_required(login_url='login/')
 def friend_list(request):
     context = {
-        'results_from_user': Friend.objects.filter(from_user=request.user)
-        # 'results_to_user': Friend.to_user
+        'results_from_user': Friend.objects.filter(from_user=request.user),
+        'results_to_user': Friend.objects.all()
     }
     # print(context)
     return render(request, 'friend/friend_list.html', context)
@@ -30,7 +30,6 @@ def friend_list(request):
 def add_friend_link(request, uidb64):
     """Adding a link  in email which is sent to friend
      through which one can accept or reject friend request"""
-
     try:
         uid = force_bytes(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=request.user.id)
@@ -48,6 +47,7 @@ def accept_friend_request(request, uidb64, status):
         to_user = request.user.id
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
         friends = Friend.objects.get(id = request.user.id, to_user=Friend.to_user.id)
+        print(friends.status)
         for f in friends:
             if f:
                 f.status = "accepted"
@@ -57,7 +57,6 @@ def accept_friend_request(request, uidb64, status):
             else:
                 f.status = "rejected"
                 f.save()
-                print(f.status)
                 redirect(reverse_lazy('list'))
     except(FieldError, AttributeError):
         return render(request, 'blog/base.html')
@@ -67,11 +66,13 @@ def accept_friend_request(request, uidb64, status):
 def add_friend(request, pk):
     """Sending friend request to email"""
     name = request.user.first_name
+    print(name)
     from_user = get_object_or_404(User, id=request.user.id)
     current_site = get_current_site(request)
     to_user = get_object_or_404(User, pk=pk)
 
-    email_subject = 'Friend Request from ' + name
+    email_subject = 'Friend Request from %s' % name
+    # print(email_subject)
     message = render_to_string('friend/add_friend.html', {
         'user': user,
         'domain': current_site.domain,

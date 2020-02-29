@@ -15,11 +15,11 @@ class Friend(models.Model, LoginRequiredMixin):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def create(self,request, **kwargs):
-        friend = self.create(from_user_id=request.user.id, status="pending")
+        friend = self.create(from_user_id=request.user.id)
         return friend
 
     class Meta:
-        unique_together = (('from_user', 'to_user'),)
+        unique_together = (('from_user', 'to_user'))
 
     def __str__(self):
         return self.to_user.email

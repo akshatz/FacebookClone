@@ -12,14 +12,12 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from blog.models import Posts
-from blog.views import user
 from django_project.settings import MEDIA_URL, AUTH_USER_MODEL
-from friend.models import Friend
 from .token_generator import account_activation_token
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from django.contrib.auth import get_user_model, login, logout, authenticate
-from django.shortcuts import render, get_object_or_404, render_to_response, redirect
-from users.models import Profile
+from django.contrib.auth import get_user_model, login
+from django.shortcuts import render, get_object_or_404
+from .models import Profile
 from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
