@@ -22,7 +22,6 @@ def friend_list(request):
         'results_from_user': Friend.objects.filter(from_user=request.user),
         'results_to_user': Friend.objects.all()
     }
-    # print(context)
     return render(request, 'friend/friend_list.html', context)
 
 
@@ -45,21 +44,23 @@ def accept_friend_request(request, uidb64, status):
     based on status flag"""
     try:
         to_user = request.user.id
+        # print(to_user)
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
-        friends = Friend.objects.get(id = request.user.id, to_user=Friend.to_user.id)
-        print(friends.status)
-        for f in friends:
-            if f:
-                f.status = "accepted"
-                f.save()
-                print(f.status)
+        # print(uid)
+        friends = Friend.objects.all()
+        print(Friend.objects.all())
+        for friend in friends:
+            if friend:
+                friend.status = "accepted"
+                friend.save()
+                print(friend.status)
                 return render(request, 'friend/friend_list.html')
             else:
-                f.status = "rejected"
-                f.save()
+                friend.status = "rejected"
+                friend.save()
                 redirect(reverse_lazy('list'))
     except(FieldError, AttributeError):
-        return render(request, 'blog/base.html')
+        return render(request, 'blog/home.html')
 
 
 @login_required(login_url='login/')

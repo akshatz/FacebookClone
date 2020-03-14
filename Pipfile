@@ -19,6 +19,7 @@ gunicorn = "==19.9.0"
 django-heroku = "==0.3.1"
 Pillow = "==6.2.1"
 whitenoise = "*"
+requirements-txt = "*"
 
 [requires]
 python_version = "3.6"
