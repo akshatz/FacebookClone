@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['whispering-cove-19795.herokuapp.com', 'social-networking-django.herokuapp.com']
+ALLOWED_HOSTS = ['social-networking-django.herokuapp.com']
 
 # Application definition
 

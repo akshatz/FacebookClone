@@ -21,4 +21,4 @@ Pillow = "==6.2.1"
 whitenoise = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7.7"
