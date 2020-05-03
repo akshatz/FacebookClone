@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'friend',
-    # 'relationships',
+    'social.apps.django_app.default'
 ]
 
 
@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends'
             ],
         },
     },
@@ -160,3 +161,13 @@ EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
 
 django_heroku.settings(locals())
+
+AUTHENTICATION_BACKEND ={
+    'social.backends.github.GithubOAUTH2',
+    'django.contrib.backends.ModelBackend'
+}
+
+
+# SOCIAL REGISTRATION BACKENDS
+CLIENT_ID = '68ece68714b1736673d8'
+CLIENT_SECRET = '5df959cfe34fcf771b1ee57558ae449c5cd454c7'
