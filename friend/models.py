@@ -11,7 +11,7 @@ class Friend(models.Model, LoginRequiredMixin):
     to_user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="to_user")
     date_modified = models.DateTimeField(auto_now=True, null=True,blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    is_friend = models.BooleanField(default=False)
+    # is_friend = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('from_user', 'to_user'),)
