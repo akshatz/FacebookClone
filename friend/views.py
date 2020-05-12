@@ -44,21 +44,18 @@ def accept_friend_request(request, uidb64, status):
     based on status flag"""
     try:
         to_user = request.user.id
-        # print(to_user)
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
-        # print(uid)
-        friends = Friend.objects.all()
-        print(Friend.objects.all())
-        for friend in friends:
-            if friend:
-                friend.status = "accepted"
-                friend.save()
-                print(friend.status)
-                return render(request, 'friend/friend_list.html')
+        friends = Friend.objects.filter(id =request.POST.get(id))
+        for f in friends:
+            print(f)
+            if f.status == 'pending':
+                f.status = "accepted"
+                f.save()
+                return render(request, 'blog/posts_detail.html')
             else:
-                friend.status = "rejected"
-                friend.save()
-                redirect(reverse_lazy('list'))
+                f.status = "rejected"
+                f.save()
+                return render(request, 'friend/friend_list.html')
     except(FieldError, AttributeError):
         return render(request, 'blog/home.html')
 
@@ -67,13 +64,11 @@ def accept_friend_request(request, uidb64, status):
 def add_friend(request, pk):
     """Sending friend request to email"""
     name = request.user.first_name
-    print(name)
     from_user = get_object_or_404(User, id=request.user.id)
     current_site = get_current_site(request)
     to_user = get_object_or_404(User, pk=pk)
 
     email_subject = 'Friend Request from %s' % name
-    # print(email_subject)
     message = render_to_string('friend/add_friend.html', {
         'user': user,
         'domain': current_site.domain,
@@ -89,8 +84,3 @@ def add_friend(request, pk):
     else:
         f.save()
         return render(request, 'friend/sent_friend_request_success.html', context)
-
-
-def sharing_of_post(request):
-    if Friend.status == 'accepted':
-        return render(request,'blog/home.html')

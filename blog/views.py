@@ -50,6 +50,7 @@ class PostDetailView(DetailView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    
     """
         Post form has fields
             title
@@ -57,6 +58,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
             image
             video
     """
+    
     fields = ['title', 'content', 'image', 'video']
     model = Posts
     success_url = '/blog/'
@@ -70,12 +72,15 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    """Post update form  has fields
+    
+    """
+    Post update form  has fields
         title
         content
         image
         video
     """
+
     model = Posts
     fields = ['title', 'content', 'image', 'video']
     success_url = '/blog'
