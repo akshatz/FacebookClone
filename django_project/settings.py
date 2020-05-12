@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'friends',
+    'friend',
 ]
 
 
@@ -150,8 +150,8 @@ LOGIN_URL = 'login'
 # EMAIL BACKENDS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER='akshatzala@gmail.com' # email id
-EMAIL_HOST_PASSWORD='mammudmqgjxvmryc' #password
+EMAIL_HOST_USER = 'akshatzala@gmail.com' # email id
+EMAIL_HOST_PASSWORD = 'mammudmqgjxvmryc' #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
@@ -168,6 +168,3 @@ CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
 django_heroku.settings(locals())
-
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
