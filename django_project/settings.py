@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG=True
 
 ALLOWED_HOSTS = ['pacific-retreat-33369.herokuapp.com']
 
@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'friend',
-    # 'social.apps.django_app.default'
 ]
 
 
@@ -73,7 +72,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social.apps.django_app.context_processors.backends'
             ],
         },
     },
@@ -153,8 +151,8 @@ LOGIN_URL = 'login'
 # EMAIL BACKENDS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER = 'akshatzala@gmail.com' # email id
-EMAIL_HOST_PASSWORD = 'zcnezyaolyfgiavr' #password
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') # email id
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
@@ -168,5 +166,5 @@ AUTHENTICATION_BACKEND ={
 
 
 # SOCIAL REGISTRATION BACKENDS
-CLIENT_ID = '68ece68714b1736673d8'
-CLIENT_SECRET = '5df959cfe34fcf771b1ee57558ae449c5cd454c7'
+CLIENT_ID = os.environ.get('CLIENT_ID')
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
