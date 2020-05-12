@@ -23,13 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'c(i%fn^1j#)@(v+b#42f&_k9h(f=p&iulxz&trl9l8v3nn9@*0'
-
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG=True
 
-ALLOWED_HOSTS = ['social-networking-django.herokuapp.com']
+ALLOWED_HOSTS = ['pacific-retreat-33369.herokuapp.com']
 
 # Application definition
 
@@ -45,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'friend',
-    'social.apps.django_app.default'
 ]
 
 
@@ -73,7 +71,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social.apps.django_app.context_processors.backends'
             ],
         },
     },
@@ -139,7 +136,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage',
 
 AUTH_USER_MODEL = 'blog.User'
 
@@ -155,12 +151,11 @@ LOGIN_URL = 'login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_HOST_USER = 'akshatzala@gmail.com' # email id
-EMAIL_HOST_PASSWORD = 'zcnezyaolyfgiavr' #password
+EMAIL_HOST_PASSWORD = 'mammudmqgjxvmryc' #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
 
-django_heroku.settings(locals())
 
 AUTHENTICATION_BACKEND ={
     'social.backends.github.GithubOAUTH2',
@@ -169,5 +164,7 @@ AUTHENTICATION_BACKEND ={
 
 
 # SOCIAL REGISTRATION BACKENDS
-CLIENT_ID = '68ece68714b1736673d8'
-CLIENT_SECRET = '5df959cfe34fcf771b1ee57558ae449c5cd454c7'
+CLIENT_ID = os.environ.get('CLIENT_ID')
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+
+django_heroku.settings(locals())

@@ -47,9 +47,10 @@ def accept_friend_request(request, uidb64, status):
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
         friends = Friend.objects.get(id = request.user.id, to_user=Friend.to_user.id)
         for f in friends:
-            if f.status == "accepted":
+            if f.status =='pending':
+                f.status = 'accepted'
                 f.save()
-                print(f.status)
+                # print(f.status)
                 return render(request, 'friend/friend_list.html')
             else:
                 f.status ="rejected"
