@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'friend',
-    'social.apps.django_app.default'
+    # 'social.apps.django_app.default'
 ]
 
 
