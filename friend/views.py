@@ -44,18 +44,28 @@ def accept_friend_request(request, uidb64, status):
     based on status flag"""
     try:
         to_user = request.user.id
+        # print(to_user)
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
-        friends = Friend.objects.filter(id =request.POST.get(id))
+        friends = Friend.objects.filter(to_user=request.user.id)
         for f in friends:
-            print(f)
             if f.status == 'pending':
                 f.status = "accepted"
                 f.save()
                 return render(request, 'blog/posts_detail.html')
-            else:
+            elif f.status == 'decline':
                 f.status = "rejected"
                 f.save()
                 return render(request, 'friend/friend_list.html')
+            elif f.status == 'accepted':
+                pass
+                return render(request, 'friend/friend_list.html')
+            elif f.status == 'rejected':
+                pass
+                return render(request, 'friend/friend_list.html')
+            else:
+                pass
+                return render(request, 'friend/friend_list.html')
+                
     except(FieldError, AttributeError):
         return render(request, 'blog/home.html')
 
