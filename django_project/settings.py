@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG=False
+DEBUG=True
 
 ALLOWED_HOSTS = ['pacific-retreat-33369.herokuapp.com']
 
@@ -140,7 +140,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'blog.User'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/app/media/'
+MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -150,8 +150,8 @@ LOGIN_URL = 'login'
 # EMAIL BACKENDS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') # email id
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') #password
+EMAIL_HOST_USER='akshatzala@gmail.com' # email id
+EMAIL_HOST_PASSWORD='mammudmqgjxvmryc' #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
