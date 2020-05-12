@@ -156,7 +156,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
 
-django_heroku.settings(locals())
 
 AUTHENTICATION_BACKEND ={
     'social.backends.github.GithubOAUTH2',
@@ -167,3 +166,5 @@ AUTHENTICATION_BACKEND ={
 # SOCIAL REGISTRATION BACKENDS
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+
+django_heroku.settings(locals())
