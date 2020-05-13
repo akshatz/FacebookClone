@@ -65,7 +65,6 @@ def accept_friend_request(request, uidb64, status):
             else:
                 pass
                 return render(request, 'friend/friend_list.html')
-                
     except(FieldError, AttributeError):
         return render(request, 'blog/home.html')
 
@@ -88,8 +87,8 @@ def add_friend(request, pk):
     f = Friend(from_user=from_user, to_user=to_user, status="pending")
     context = {'name': name, 'first_name': to_user.first_name, 'last_name': to_user.last_name}
     email = EmailMessage(email_subject, message, from_user.email, to=[to_email])
-    email.send()
-    if not (f.from_user and f.to_user):
+    if not (f.from_user or f.to_user) and (f.from_user or f.to_user):
+        email.send()
         return HttpResponseRedirect(reverse(friend_list))
     else:
         f.save()
