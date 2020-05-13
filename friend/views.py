@@ -52,7 +52,7 @@ def accept_friend_request(request, uidb64, status):
                 f.status = "accepted"
                 f.save()
                 return render(request, 'blog/posts_detail.html')
-            elif f.status == 'decline':
+            elif f.status != 'accepted'
                 f.status = "rejected"
                 f.save()
                 return render(request, 'friend/friend_list.html')
