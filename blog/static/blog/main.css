@@ -88,6 +88,7 @@ word-break:break-all;
 }
 
 .friends {
+  word-break:break-all;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;

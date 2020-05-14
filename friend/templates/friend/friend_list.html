@@ -9,9 +9,10 @@
         <th>Status</th>
     </tr>
     {% for result in results_to_user %}
+
     <tr>
         <td>
-            <img src="{{result.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
+            <img src="{{result.to_user.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
         </td>
         <td>
             <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a> ({{ result.to_user.email }})
@@ -27,18 +28,14 @@
     {% endfor %}
     </table>
     <p></p>
-    <h1>List of friend request recieved from others:</h1>
+    <!-- <h2>List of friend requests recieved by me</h2>
     <table border="1px solid #fff" class = "friends">
         <tr>
             <th>Profile Picture</th>
             <th>Details</th>
             <th>Status</th>
         </tr>
-    {% for result in results_to_user %}
-        {% if result.from_user == result.to_user %}
-        <tr>{{pass}}</tr>
-        {% endif %}
-        <tr>
+    {% for result in result.from_user %}
         <td>
             <img src="{{ result.from_user.profile.image.url }}" class="rounded-circle account-img"/>
         </td>
@@ -50,13 +47,15 @@
         </td>
         {% if result.status == "accepted" %}
             <td>Accepted</td>
-        {% elif result.status == "pending" %}
+        {% endif %}
+        {% if result.status == "pending" %}
             <td>Pending</td>
-        {% elif result.status == "decline" %}
+        {% endif %}
+        {% if result.status != "accepted" %}
             <td>Rejected</td>
         {% endif %}
         </tr>
         {% endfor %}
-    </table> 
+    </table> -->    
 
 {% endblock %}

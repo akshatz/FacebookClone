@@ -65,7 +65,7 @@ def activate_account(request, uidb64, token):
 
 
 def users_list(request):
-    """TO list all friends of a user"""
+    """To list all friends of a user"""
     users = Profile.objects.exclude(user=request.user)
     context = {
         'users': users
