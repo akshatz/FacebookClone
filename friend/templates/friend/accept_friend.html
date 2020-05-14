@@ -8,7 +8,7 @@
                 <h5>Are you sure you want to confirm the friend request of {{ result.id }}</h5>
                 <div class="form-group">
                     <a class="btn btn-primary" href="{% url 'accept_friend_request' uidb64=uid status="accepted" %}">Accept</a>
-                    <a class="btn btn-danger" href="{% url 'accept_friend_request' uidb64=uid status="rejected" %}">Reject</a>
+                    <a class="btn btn-danger" href="{% url 'accept_friend_request' uidb64=uid status!="accepted" %}">Reject</a>
                 </div>
             </fieldset>
         </form>

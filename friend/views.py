@@ -20,7 +20,7 @@ User = get_user_model()
 def friend_list(request):
     context = {
         'results_from_user': Friend.objects.filter(from_user=request.user),
-        'results_to_user': Friend.objects.all()
+        'results_to_user': Friend.objects.filter(to_user=request.user.id)
     }
     return render(request, 'friend/friend_list.html', context)
 
@@ -44,7 +44,6 @@ def accept_friend_request(request, uidb64, status):
     based on status flag"""
     try:
         to_user = request.user.id
-        # print(to_user)
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
         friends = Friend.objects.filter(to_user=request.user.id)
         for f in friends:
@@ -93,3 +92,4 @@ def add_friend(request, pk):
     else:
         f.save()
         return render(request, 'friend/sent_friend_request_success.html', context)
+
