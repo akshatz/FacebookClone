@@ -24,12 +24,13 @@ User = get_user_model()
 
 
 def register(request):
+
     """Send Email to confirm validate user"""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = True
+            user.is_active = False
             user.save()
             current_site = get_current_site(request)
             email_subject = 'Activate Your Account'
@@ -51,9 +52,7 @@ def activate_account(request, uidb64, token):
     """Activate the account for the user using token and uid"""
     try:
         uid = force_bytes(urlsafe_base64_decode(uidb64))
-        # print(uid)
         user = User.objects.get(pk=uid)
-        # print(user)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
