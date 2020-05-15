@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import FieldError
 from django.core.mail import EmailMessage
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
@@ -40,7 +40,6 @@ def add_friend_link(request, uidb64):
 
 def accept_friend_request(request, uidb64, status):
     """Accept button will lead to entry in database as accepted
-    and reject button will lead to entry in database as rejected
     based on status flag"""
     try:
         to_user = request.user.id
@@ -51,21 +50,19 @@ def accept_friend_request(request, uidb64, status):
                 f.status = "accepted"
                 f.save()
                 return render(request, 'blog/posts_detail.html')
-            elif f.status != 'accepted':
+            elif f.status != 'accepted' and f.status != 'pending':
                 f.status = "rejected"
                 f.save()
                 return render(request, 'friend/friend_list.html')
-            elif f.status == 'accepted':
-                pass
-                return render(request, 'friend/friend_list.html')
-            elif f.status == 'rejected':
-                pass
-                return render(request, 'friend/friend_list.html')
+            elif f.status != 'pending':
+                f.status = 'rejected' 
+                f.save()
+                return render(request, 'friend/reject_friend.html')
             else:
                 pass
-                return render(request, 'friend/friend_list.html')
-    except(FieldError, AttributeError):
-        return render(request, 'blog/home.html')
+                return HttpResponse("HELLO")
+    except Exception:
+        return HTTPResponse("HI")
 
 
 @login_required(login_url='login/')
@@ -93,3 +90,19 @@ def add_friend(request, pk):
         f.save()
         return render(request, 'friend/sent_friend_request_success.html', context)
 
+
+def cancel_friend_request(request, uidb64, status):
+
+    try:
+        to_user = request.user.id
+        uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
+        friends = Friend.objects.filter(to_user=request.user.id)
+        for f in friends:
+            if f.status == "cancel":
+                f.save()
+                return HttpResponse("Cancel")
+            else:
+                pass
+                return HttpResponse("Not Cancelled")
+    except:
+        print("Error")

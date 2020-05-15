@@ -96,6 +96,7 @@ word-break:break-all;
 
 .friends td, .friends th {
   border: 1px solid #ddd;
+  word-break:break-all;
   padding: 8px;
 }
 
