@@ -84,7 +84,7 @@ def add_friend(request, pk):
     context = {'name': name, 'first_name': to_user.first_name, 'last_name': to_user.last_name}
     email = EmailMessage(email_subject, message, from_user.email, to=[to_email])
     email.send()
-    if not (f.from_user and f.to_user):# (f.from_user or f.to_user):
+    if not (f.from_user == f.to_user) and (f.from_user == f.to_user):
         return HttpResponseRedirect(reverse(friend_list))
     else:
         f.save()

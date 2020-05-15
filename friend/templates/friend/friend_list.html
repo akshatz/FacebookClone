@@ -2,6 +2,10 @@
 {% load static %}
 {% block content %}
 <h2>List of friend requests sent by me</h2>
+{{results_to_user}}
+
+<br>HELLO<br>
+{{results_from_user}}
 <table border="1px solid #fff" class = "friends">
     <tr>
         <th>Profile Picture</th>
@@ -9,7 +13,6 @@
         <th>Status</th>
     </tr>
     {% for result in results_to_user %}
-
     <tr>
         <td>
             <img src="{{result.to_user.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
@@ -27,6 +30,7 @@
     </tr>
     {% endfor %}
     </table>
+
     <!-- <p></p>
 <h2>List of friend requests recieved from others</h2>
 <table border="1px solid #fff" class = "friends">
