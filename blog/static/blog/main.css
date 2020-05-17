@@ -121,7 +121,7 @@ word-break:break-all;
   border: none;
   outline: none;
   background-color: var(--orange);
-  color: #117a8b
+  color: #117a8b;
   cursor: pointer;
   padding: 15px;
   border-radius: 4px;
