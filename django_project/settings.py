@@ -152,10 +152,14 @@ LOGIN_URL = 'login'
 # EMAIL BACKENDS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER = 'akshatzala@gmail.com' # email id
-EMAIL_HOST_PASSWORD = 'zcnezyaolyfgiavr' #password
+EMAIL_HOST_USER = os.environ.get(EMAIL_HOST_USER) # email id
+EMAIL_HOST_PASSWORD = os.environ.get(EMAIL_HOST_PASSWORD)#password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
+
+# AWS ID AND SECRET_KEY
+AWS_ACCESS_KEY_ID = os.environ.get(AWS_ACCESS_KEY_ID)
+AWS_SECRET_ACCESS_KEY = os.environ.get(AWS_SECRET_ACCESS_KEY)
 
 django_heroku.settings(locals())
