@@ -83,7 +83,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     model = Posts
     fields = ['title', 'content', 'image', 'video']
-    success_url = '/blog'
+    success_url = '/blog/'
 
     def form_valid(self, form):
         try:
