@@ -1,4 +1,4 @@
-#!/home/akshatz/Documents/Publish/whispering-cove-19795/venv/bin/python
+#!/home/akshatz/Documents/Publish/whispering-cove-19795/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

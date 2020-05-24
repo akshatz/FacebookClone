@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'c(i%fn^1j#)@(v+b#42f&_k9h(f=p&iulxz&trl9l8v3nn9@*0'
+SECRET_KEY = 'c(i%fn^1j#)@(v+b#42f&_k9h(f=p&iulxz&trl9l8v3nn9@*0'
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG=os.environ.get("DEBUG_VALUE")
 
 ALLOWED_HOSTS = ['socialnetwork-django.herokuapp']
 
@@ -85,18 +85,18 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sample_blog',
-        'USER': 'root',
-        'PASSWORD': '1234root',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'sample_blog',
+    #     'USER': 'root',
+    #     'PASSWORD': '1234root',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306'
+    # }
 }
 
 # Password validation
@@ -119,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/2.2/topics/i18n/
+# htt ps://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 

@@ -1,4 +1,4 @@
-#!/home/akshatz/Documents/Publish/whispering-cove-19795/venv/bin/python
+#!/home/akshatz/Documents/Publish/whispering-cove-19795/venv/bin/python3
 from django.core import management
 
 if __name__ == "__main__":

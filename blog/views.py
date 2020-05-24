@@ -14,6 +14,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from friend.models import Friend, Share
 
 user = get_user_model()
 
@@ -23,7 +24,12 @@ def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
     if request.user.is_authenticated:
         context = {
-            'posts': Posts.objects.all().order_by('-date_posted'),
+            'posts': Posts.objects.filter(
+                Q(author=request.user) | \
+                Q(author__from_user__from_user=request.user) | \
+                Q(author__to_user__to_user=request.user))
+                .distinct().
+                order_by('-date_posted'),
             'media': MEDIA_URL,
         }
         return render(request, 'blog/home.html', context)
@@ -92,6 +98,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             messages.success(self.request, 'You have successfully updated the post')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
         except:
+            pass
             messages.error(self.request, 'You cannot update the post. Please retry!!!')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
 
