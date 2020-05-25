@@ -27,8 +27,7 @@ def home_view(request):
             'posts': Posts.objects.filter(
                 Q(author=request.user) | \
                 Q(author__from_user__from_user=request.user) | \
-                Q(author__to_user__to_user=request.user))
-                .distinct().
+                Q(author__to_user__to_user=request.user)).distinct().
                 order_by('-date_posted'),
             'media': MEDIA_URL,
         }
