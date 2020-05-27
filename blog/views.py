@@ -24,11 +24,11 @@ def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
     if request.user.is_authenticated:
         context = {
-            'posts': Posts.objects.filter(
-                Q(author=request.user) | \
-                Q(author__from_user__from_user=request.user) | \
-                Q(author__to_user__to_user=request.user)).distinct().
-                order_by('-date_posted'),
+            'posts': Posts.objects.all()
+                # Q(author=request.user) | \
+                # Q(author__from_user__from_user=request.user) | \
+                # Q(author__to_user__to_user=request.user)).distinct()
+                .order_by('-date_posted'),
             'media': MEDIA_URL,
         }
         return render(request, 'blog/home.html', context)

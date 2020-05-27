@@ -85,18 +85,18 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'sample_blog',
-    #     'USER': 'root',
-    #     'PASSWORD': '1234root',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306'
-    # }
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sample_blog',
+        'USER': 'akshatz',
+        'PASSWORD': '1234root',
+        'HOST': 'localhost',
+        'PORT': '3306'
+    }
 }
 
 # Password validation
@@ -152,8 +152,8 @@ LOGIN_URL = 'login'
 # EMAIL BACKENDS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_USER = os.environ.get("EMAIL_HOST_USER") 
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
+EMAIL_HOST_USER='akshatzala@gmail.com'
+EMAIL_HOST_PASSWORD='wbnbreznhcxxmzis'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7

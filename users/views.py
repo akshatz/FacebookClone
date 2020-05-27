@@ -42,6 +42,7 @@ def register(request):
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(email_subject, message, to=[to_email])
+            print(email)
             email.send()
             return render(request, 'users/email_sent.html')
     else:
@@ -62,7 +63,6 @@ def activate_account(request, uidb64, token):
         return render(request, 'users/activated_account.html')
     else:
         return render(request, 'users/invalid_link.html')
-
 
 def users_list(request):
     """To list all friends of a user"""
