@@ -11,10 +11,10 @@
     {% for result in results_from_user %}
     <tr>
         <td>
-            <img src="{{result.from_user.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
+            <img src="{{result.to_user.profile.image.url}}" class="rounded-circle account-img" alt="Profile Picture">
         </td>
         <td>
-            <a href="{% url 'profile' result.from_user.id %}">{{result.from_user.first_name}} {{result.from_user.last_name }}</a> ({{ result.from_user.email }})
+            <a href="{% url 'profile' result.to_user.id %}">{{result.to_user.first_name}} {{result.to_user.last_name }}</a> ({{ result.to_user.email }})
         </td>
         {% if result.status == "accepted" %}
         <td>Accepted</td>
