@@ -49,18 +49,18 @@ def accept_friend_request(request, uidb64, status):
             if f.status == 'pending':
                 f.status = "accepted"
                 f.save()
-                return render(request, 'blog/posts_detail.html')
+                return redirect('/friend/list')
             elif f.status != 'accepted' and f.status != 'pending':
                 f.status = "rejected"
                 f.save()
-                return render(request, 'friend/friend_list.html')
+                return redirect('/friend/')
             elif f.status != 'pending':
                 f.status = 'rejected' 
                 f.save()
-                return render(request, 'friend/reject_friend.html')
+                return redirect('/friend/list')
             else:
                 pass
-                return HttpResponse("HELLO")
+                return redirect('/blog/home.html')
     except Exception:
         return HTTPResponse("HI")
 

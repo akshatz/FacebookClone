@@ -42,7 +42,6 @@ def register(request):
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(email_subject, message, to=[to_email])
-            print(email)
             email.send()
             return render(request, 'users/email_sent.html')
     else:
