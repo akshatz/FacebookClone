@@ -9,8 +9,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from blog.models import User
-from blog.views import user
+from post.models import User
+from post.views import user
 from friend.models import Friend, Share
 
 User = get_user_model()
@@ -60,7 +60,7 @@ def accept_friend_request(request, uidb64, status):
                 return redirect('/friend/list')
             else:
                 pass
-                return redirect('/blog/home.html')
+                return redirect('/post/home.html')
     except Exception:
         return HTTPResponse("HI")
 

@@ -26,7 +26,7 @@ class User(AbstractUser):
         return self.username
 
 
-class Posts(models.Model):
+class Post(models.Model):
     
     """
     Post has title,

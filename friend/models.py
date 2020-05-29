@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-from blog.models import Posts
+from post.models import Post
 from django_project.settings import AUTH_USER_MODEL
 
 
@@ -28,5 +28,5 @@ class Friend(models.Model, LoginRequiredMixin):
 class Share(models.Model):
     from_user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='friend_user')
     to_user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='logged_in_user')
-    shared_content = Posts.objects.all()
+    shared_content = Post.objects.all()
     is_friend = models.BooleanField(default=False)
