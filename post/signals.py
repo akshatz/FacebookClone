@@ -2,7 +2,7 @@ from django.db.models.signals import post_save
 
 import notifications.notify
 
-from blog.models import Posts
+from post.models import Posts
 
 
 # def my_handler(sender, instance, created, **kwargs):

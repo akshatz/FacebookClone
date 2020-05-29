@@ -12,7 +12,7 @@ from .views import (
 from .views import *
 
 urlpatterns = [
-    path('', home_view, name='blog-home'),
+    path('', home_view, name='post-home'),
     path('user/<int:pk>', UserPostListView.as_view(), name='user-posts'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     url('post/(?P<pk>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/$', PostDetailView.as_view(), name='post-detail'),

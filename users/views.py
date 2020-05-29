@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from blog.models import Posts
+from post.models import Post
 from django_project.settings import MEDIA_URL, AUTH_USER_MODEL
 from .token_generator import account_activation_token
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -69,7 +69,7 @@ def users_list(request):
     context = {
         'users': users
     }
-    return render(request, "blog/home.html", context)
+    return render(request, "post/home.html", context)
 
 
 def profile(request):
@@ -103,7 +103,7 @@ def search(request):
                                           )
 
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
-        return render(request, 'blog/base.html')
+        return render(request, 'post/base.html')
 
 
 def search_profile(request, pk):
@@ -139,7 +139,7 @@ def profile_detail(request, pk):
 def home(request):
     """Display all the post of friends and own posts on the dashboard"""
     context = {
-        'posts': Posts.objects.filter(author=request.user).order_by('-date_posted'),
+        'posts': Post.objects.filter(author=request.user).order_by('-date_posted'),
         'media': MEDIA_URL
     }
-    return render(request, 'blog/home.html', context)
+    return render(request, 'post/home.html', context)
