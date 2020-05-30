@@ -29,39 +29,36 @@
                   <img src="{{post.image.url}}" class="imageName"/>
               {% elif post.video %}
                   <video width="400px" controls autoplay >
-                      <source src="{{media}}/{{post.video}}" type='video/mp4'/>
+                      <source src="{{media}}{{post.video}}" type='video/mp4'/>
                   </video>
                 <p></p>
-              {% else %}
-
               {% endif%}
           </div>
-<!--             <button type="submit" name="object.id" value="{{post_id}}" class="btn btn-primary btn-sm mt-1 mb-1">Like</button>-->
-<!--  {{ total_likes }} Like {{ total_likes|pluralize }}-->
           <ul>
-              {% for user_p in users %}
-		        <li>
-                    <a href="{{ user_p.get_absolute_url }}">{{ user_p }}</a>
+            {% for user_p in users %}
+				<li>
+                	<a href="{{ user_p.get_absolute_url }}">HI</a>
                 </li>
-              {% endfor %}
+			{% endfor %}
           </ul>
         </article>
     {% endfor %}
     {% if is_paginated %}
-      {% if page_obj.has_previous %}
-        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+     	{% if  page_obj.has_previous %}
+        	<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        	<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><span class="material-icons">arrow_left</span></a>
+      	{% endif %}
+		{% for num in page_obj.paginator.page_range %}
+        	{% if page_obj.number == num %}
+          		<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        	{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          		<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        	{% endif %}
+      	{% endfor %}
+	  	{% if page_obj.has_next %}
+        	<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}"><span class="material-icons">arrow_right</span></a>
+        	<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
       {% endif %}
-      {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        {% endif %}
-      {% endfor %}
-    {% if page_obj.has_next %}
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-      {% endif %}
-    {% endif %}
+
+	{% endif %}
 {% endblock %}
