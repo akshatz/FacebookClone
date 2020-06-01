@@ -135,11 +135,11 @@ def profile_detail(request, pk):
         return render(request, 'users/search_profile.html', context)
 
 
-@login_required(login_url='/login')
-def home(request):
-    """Display all the post of friends and own posts on the dashboard"""
-    context = {
-        'posts': Post.objects.filter(author=request.user).order_by('-date_posted'),
-        'media': MEDIA_URL
-    }
-    return render(request, 'post/home.html', context)
+# @login_required(login_url='/login')
+# def home(request):
+#     """Display all the post of friends and own posts on the dashboard"""
+#     context = {
+#         'posts': Post.objects.filter(author=request.user).order_by('-date_posted'),
+#         'media': MEDIA_URL
+#     }
+#     return render(request, 'post/home.html', context)

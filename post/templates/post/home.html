@@ -1,64 +1,67 @@
 {% extends "post/base.html" %}
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-          <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-          </div>
-        {% endfor %}
-    {% endif %}
-    {% for post in posts %}
-        <article class="media content-section">
-          <img class="rounded-circle article-img" 
-          src="{{ post.author.profile.image.url }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <p>{{ post.author }} </p>
-                <small class="text-muted">{{ post.date_posted }}</small><br>
-                <small class="text-muted">Date Modified:{{ post.date_modified}}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.uuid %}">{{ post.title }}</a></h2>
-            <p class="article-content" style="word-break:break-word;">{{ post.content }}</p>
-              {% if post.image and post.video %}
-                <img src = "{{post.image.url}}" class="imageName"/>
-              <p></p>
-              <video width='400' controls>
-                  <source src="{{media}}/{{post.video}}" type='video/mp4'/>
-              </video>
-              {% elif post.image %}
-                  <img src="{{post.image.url}}" class="imageName"/>
-              {% elif post.video %}
-                  <video width="400px" controls autoplay >
-                      <source src="{{media}}{{post.video}}" type='video/mp4'/>
-                  </video>
-                <p></p>
-              {% endif%}
-          </div>
-          <ul>
-            {% for user_p in users %}
-				<li>
-                	<a href="{{ user_p.get_absolute_url }}">HI</a>
-                </li>
-			{% endfor %}
-          </ul>
-        </article>
-    {% endfor %}
-    {% if is_paginated %}
-     	{% if  page_obj.has_previous %}
-        	<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-        	<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><span class="material-icons">arrow_left</span></a>
-      	{% endif %}
-		{% for num in page_obj.paginator.page_range %}
-        	{% if page_obj.number == num %}
-          		<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        	{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          		<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        	{% endif %}
-      	{% endfor %}
-	  	{% if page_obj.has_next %}
-        	<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}"><span class="material-icons">arrow_right</span></a>
-        	<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-      {% endif %}
+	{% if messages %}
+		{% for message in messages %}
+		  <div class="alert alert-{{ message.tags }}">
+			{{ message }}
+		  </div>
+		{% endfor %}
+	{% endif %}
+	{% for p in post %}
+		<article class="media content-section">
+		  <img class="rounded-circle article-img" 
+		  src="{{ p.author.profile.image.url }}">
+		  <div class="media-body">
+			<div class="article-metadata">
+			  <p>{{ p.author }} </p>
+				<small class="text-muted">{{ p.date_posted }}</small><br>
+				<small class="text-muted">Date Modified:{{ p.date_modified}}</small>
+			</div>
+			<h2><a class="article-title" href="{% url 'post-detail' p.uuid %}">{{ p.title }}</a></h2>
+			<p class="article-content" style="word-break:break-word;">{{ p.content }}</p>
+			  {% if p.image and p.video %}
+				<img src = "{{p.image.url}}" class="imageName"/>
+				<p></p>
+			  	<video width='400' controls>
+				  <source src="{{media}}/{{p.video}}" type='video/mp4'/>
+			  	</video>
 
+			  {% elif p.image %}
+				  <img src="{{p.image.url}}" class="imageName"/>
+			  {% elif p.video %}
+				  <video width="400px" controls autoplay >
+					  <source src="{{media}}{{p.video}}" type='video/mp4'/>
+				  </video>
+				<p></p>
+			  {% endif%}
+		  </div>
+		  <ul>
+			{% for user_p in users %}
+				<li>
+					<a href="{{ user_p.get_absolute_url }}">{{user_p}}</a>
+				</li>
+			{% endfor %}
+		  </ul>
+		</article>
+	{% endfor %}
+	{% if not is_paginated %}
+		{% if page_obj.has_previous %}
+			<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj. \
+			previous_page_number }}"><span class="material-icons">arrow_left</span></a>
+		{% endif %}
+	  	{% for num in page_obj.paginator.page_range %}
+			{% if page_obj.number == num %}
+				<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+			{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+				<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+			{% else %}
+				{{pass}}
+			{% endif %}
+		{% endfor %}
+	  	{% if page_obj.has_next %}
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}"><span class="material-icons">arrow_right</span></a>
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+		{% endif %}
 	{% endif %}
 {% endblock %}

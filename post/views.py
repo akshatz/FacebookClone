@@ -17,24 +17,19 @@ from django.views.generic import (
 from friend.models import Friend, Share
 from django.db.models import Q
 user = get_user_model()
-
-
-
+from django.core.paginator import Paginator
 
 @login_required
 def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
-    if request.user.is_authenticated:
-        context = {
-            # 'posts':Post.objects.filter(Q(author=request.user) | Q(author__from_user=request.user) | Q(author__to_user=request.user)).order_by('-date_posted'),
-            'posts': Post.objects.all(),
-            'media': MEDIA_URL,
-        }
-        return render(request, 'post/home.html', context)
-    else:
-        return render(request, 'users/login.html')
-
-
+    # post = Post.objects.filter(Q(author=request.user) | Q(author__from_user=request.user) | Q(author__to_user=request.user)).order_by('-date_posted')
+    post = Post.objects.all().order_by('-date_posted')
+    media = MEDIA_URL
+    paginator = Paginator(post, 2) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'post/home.html', {'page_obj': page_obj, 'post':post, 'media':MEDIA_URL})
+    
 class PostDetailView(DetailView):
     """Options to Update, delete the post"""
     if user.is_authenticated:
