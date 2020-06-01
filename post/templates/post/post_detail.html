@@ -26,7 +26,7 @@
 		<p class="article-content" style="word-break:break-word;">{{ object.content }}</p>
 		{% if object.image and object.video %}
 			<img src = "{{object.image.url}}" class="imageName"/>
-				
+			<p></p>
 			<video width='400' controls>
 			<source src="{{media}}/{{object.video}}" type='video/mp4'/>
 			</video>
@@ -39,4 +39,5 @@
 		{% endif%}
 		</div>
 	</article>
+	
 {% endblock %}

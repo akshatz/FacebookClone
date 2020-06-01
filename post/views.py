@@ -23,7 +23,7 @@ from django.core.paginator import Paginator
 def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
     # post = Post.objects.filter(Q(author=request.user) | Q(author__from_user=request.user) | Q(author__to_user=request.user)).order_by('-date_posted')
-    post = Post.objects.all().order_by('-date_posted')
+    post = Post.objects.all().order_by('-date_modified')
     media = MEDIA_URL
     paginator = Paginator(post, 2) 
     page_number = request.GET.get('page')
@@ -39,7 +39,7 @@ class PostDetailView(DetailView):
         redirect('/post')
 
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user).order_by('date_posted')
+        return Post.objects.filter(author=self.request.user).order_by('-date_modified')
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self) \
@@ -71,7 +71,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    
     """
     Post update form  has fields
         title
@@ -125,7 +124,7 @@ class UserPostListView(ListView):
     template_name = 'post/user_posts.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     paginate_by = 5
-    ordering = ['-date_posted']
+    ordering = ['-date_modified']
 
     def get_queryset(self):
         user = get_object_or_404(model, username=self.kwargs.get('pk'))
