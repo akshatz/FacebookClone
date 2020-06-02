@@ -1,4 +1,6 @@
-from datetime import timezone
+import datetime
+import math
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
@@ -56,9 +58,7 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
         img = Image.open(self.image.path)
-
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
@@ -68,3 +68,51 @@ class Post(models.Model):
     def photo_url(self):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
+    
+    def whenpublished(self):
+        now = timezone.now()
+        diff= now - self.date_modified
+        if diff.days == 0 and diff.seconds >= 0 and diff.seconds < 60:
+            seconds= diff.seconds
+            if seconds == 1:
+                return "Just Now"
+            else:
+                return  str(seconds) +" seconds "           
+        if diff.days == 0 and diff.seconds >= 60 and diff.seconds < 3600:
+            minutes= math.floor(diff.seconds/60)
+            if minutes == 1:
+                return str(minutes) + " mins"
+            else:
+                return str(minutes) + " mins"
+        if diff.days == 0 and diff.seconds >= 3600 and diff.seconds < 86400:
+            hours= math.floor(diff.seconds/3600)
+            if hours == 1:
+                return str(hours) + " hour ago"
+            else:
+                return str(hours) + " hours ago"
+        # 1 day to 30 days
+        if diff.days >= 1 and diff.days < 30:
+            days= diff.days
+            if days == 1:
+                return str(days) + " day ago"
+            else:
+                return str(days) + " days ago"
+        if diff.days >= 30 and diff.days < 365:
+            months= math.floor(diff.days/30)
+            
+
+            if months == 1:
+                return str(months) + " month ago"
+
+            else:
+                return str(months) + " months ago"
+
+
+        if diff.days >= 365:
+            years= math.floor(diff.days/365)
+
+            if years == 1:
+                return str(years) + " year ago"
+
+            else:
+                return str(years) + " years ago"

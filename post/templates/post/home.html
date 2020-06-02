@@ -1,5 +1,8 @@
 {% extends "post/base.html" %}
 {% block content %}
+	<!--
+		display all alert 
+	-->
 	{% if messages %}
 		{% for message in messages %}
 		  <div class="alert alert-{{ message.tags }}">
@@ -14,25 +17,22 @@
 		  <div class="media-body">
 			<div class="article-metadata">
 			  <p>{{ p.author }} </p>
-				<small class="text-muted">{{ p.date_posted }}</small><br>
-				<small class="text-muted">Date Modified:{{ p.date_modified}}</small>
+				<small class="text-muted">{{ p.whenpublished }}</small><br>
 			</div>
 			<h2><a class="article-title" href="{% url 'post-detail' p.uuid %}">{{ p.title }}</a></h2>
 			<p class="article-content" style="word-break:break-word;">{{ p.content }}</p>
-			  {% if p.image and p.video %}
+			  	{% if p.image and p.video %}
 				<img src = "{{p.image.url}}" class="imageName"/>
 				<p></p>
 			  	<video width='400' controls>
 				  <source src="{{media}}/{{p.video}}" type='video/mp4'/>
 			  	</video>
-
 			  {% elif p.image %}
 				  <img src="{{p.image.url}}" class="imageName"/>
 			  {% elif p.video %}
 				  <video width="400px" controls autoplay >
 					  <source src="{{media}}{{p.video}}" type='video/mp4'/>
 				  </video>
-				<p></p>
 			  {% endif%}
 		  </div>
 		  <ul>
@@ -48,7 +48,7 @@
 		Added pagination feature
 	-->
 	
-	{% if not is_paginated %}
+	{% if  is_paginated %}
 		{% if page_obj.has_previous %}
 			<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
 			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj. \
