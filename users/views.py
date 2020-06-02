@@ -16,7 +16,8 @@ from django_project.settings import MEDIA_URL, AUTH_USER_MODEL
 from .token_generator import account_activation_token
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import get_user_model, login
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
+from post.views import home_view
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 
@@ -26,27 +27,30 @@ User = get_user_model()
 def register(request):
 
     """Send Email to confirm validate user"""
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            current_site = get_current_site(request)
-            email_subject = 'Activate Your Account'
-            message = render_to_string('users/account_activate.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(email_subject, message, to=[to_email])
-            email.send()
-            return render(request, 'users/email_sent.html')
+    if request.user.is_authenticated:
+        return redirect(home_view)
     else:
-        form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+        if request.method == 'POST':
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                current_site = get_current_site(request)
+                email_subject = 'Activate Your Account'
+                message = render_to_string('users/account_activate.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                })
+                to_email = form.cleaned_data.get('email')
+                email = EmailMessage(email_subject, message, to=[to_email])
+                email.send()
+                return render(request, 'users/email_sent.html')
+        else:
+            form = UserRegisterForm()
+        return render(request, 'users/register.html', {'form': form})
 
 def activate_account(request, uidb64, token):
     """Activate the account for the user using token and uid"""
@@ -63,6 +67,7 @@ def activate_account(request, uidb64, token):
     else:
         return render(request, 'users/invalid_link.html')
 
+@login_required(login_url='/login')
 def users_list(request):
     """To list all friends of a user"""
     users = Profile.objects.exclude(user=request.user)
@@ -71,7 +76,7 @@ def users_list(request):
     }
     return render(request, "post/home.html", context)
 
-
+@login_required(login_url='/login')
 def profile(request):
     """Profile to view the profile"""
     if request.user.is_authenticated:
@@ -89,7 +94,7 @@ def profile(request):
             p_form = ProfileUpdateForm(instance=request.user)
             return render(request, 'users/profile.html', dict(u_form=u_form, p_form=p_form))
 
-
+@login_required(login_url='/login')
 def search(request):
     """Search feature used to search friends """
     if request.method == 'GET':
@@ -105,7 +110,7 @@ def search(request):
             return render(request, 'users/search.html', {'results': results, 'media': MEDIA_URL, "my_id":request.user.id})
         return render(request, 'post/base.html')
 
-
+@login_required(login_url='/login')
 def search_profile(request, pk):
     """User search Profile"""
     if request.user.is_authenticated:
