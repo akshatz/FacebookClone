@@ -12,6 +12,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from post.models import User
 from post.views import user
 from friend.models import Friend, Share
+from http.client import HTTPResponse
 
 User = get_user_model()
 
