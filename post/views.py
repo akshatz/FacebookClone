@@ -30,7 +30,7 @@ def home_view(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'post/home.html', {'page_obj': page_obj, 'post':post, 'media':MEDIA_URL})
     
-class PostDetailView(DetailView):
+class PostDetailView(DetailView, LoginRequiredMixin):
     """Options to Update, delete the post"""
     if user.is_authenticated:
         model = Post
@@ -60,7 +60,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     
     fields = ['title', 'content', 'image', 'video']
     model = Post
-    success_url = '/post/'
+    success_url = '/post'
 
     def form_valid(self, form):
         try:
@@ -81,7 +81,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     model = Post
     fields = ['title', 'content', 'image', 'video']
-    success_url = '/post/'
+    success_url = '/post'
 
     def form_valid(self, form):
         try:
@@ -113,17 +113,12 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-# def about(request):
-#     """About page forthe company"""
-#     return render(request, 'post/about.html', {'title': 'About'})
-
-
 class UserPostListView(ListView):
     """Own post and friend post are visible"""
     model = Post
-    template_name = 'post/user_posts.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'post/user_post.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
-    paginate_by = 5
+    paginate_by = 2
     ordering = ['-date_modified']
 
     def get_queryset(self):
