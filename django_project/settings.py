@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+#    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -143,7 +143,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage',
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage',
 
 AUTH_USER_MODEL = 'post.User'
 
@@ -163,10 +163,8 @@ EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
 
 # AWS DETAILS
-# AWS_ACCESS_KEY_ID=os.getenv("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
-# AWS_STORAGE_BUCKET_NAME=os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_ACCESS_KEY_ID=os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME=os.getenv("AWS_STORAGE_BUCKET_NAME")
 
 django_heroku.settings(locals())
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
