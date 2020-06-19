@@ -88,12 +88,12 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbbp33p4umnrbb',
-        'USER': 'mbgnnutuyjvmqx',
-        'PASSWORD': 'cabb50dd290e07d09d659be2300837127de1ff02e850244bab44a54fadfb1282',
-        'HOST': 'ec2-34-197-141-7.compute-1.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sample_blog',
+        'USER': 'akshatz',
+        'PASSWORD': '1234root',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
@@ -143,7 +143,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage',
 
 AUTH_USER_MODEL = 'post.User'
 
