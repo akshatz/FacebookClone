@@ -87,10 +87,10 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         try:
             form.instance.author = self.request.user
             super(PostUpdateView, self).form_valid(form)
+            print("HELLO")
             messages.success(self.request, 'You have successfully updated the post')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
         except:
-            pass
             messages.error(self.request, 'You cannot update the post. Please retry!!!')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
 
