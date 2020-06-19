@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=False
 
-ALLOWED_HOSTS = ['vast-springs-06779.herokuapp.com/']
+ALLOWED_HOSTS = ['vast-springs-06779.herokuapp.com']
 
 
 # Application definition
