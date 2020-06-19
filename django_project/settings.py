@@ -88,12 +88,12 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sample_blog',
-        'USER': 'akshatz',
-        'PASSWORD': '1234root',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dbbp33p4umnrbb',
+        'USER': 'mbgnnutuyjvmqx',
+        'PASSWORD': 'cabb50dd290e07d09d659be2300837127de1ff02e850244bab44a54fadfb1282',
+        'HOST': 'ec2-34-197-141-7.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -160,9 +160,9 @@ EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
 
 # AWS DETAILS
-# AWS_ACCESS_KEY_ID=os.environ.get("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY=os.environ.get("AWS_SECRET_ACCESS_KEY")
-# AWS_STORAGE_BUCKET_NAME=os.environ.get("AWS_STORAGE_BUCKET_NAME")
+# AWS_ACCESS_KEY_ID=os.getenv("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME=os.getenv("AWS_STORAGE_BUCKET_NAME")
 
 django_heroku.settings(locals())
 import dj_database_url
