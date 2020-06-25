@@ -22,8 +22,8 @@ from django.core.paginator import Paginator
 @login_required
 def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
-    # post = Post.objects.filter(Q(author=request.user) | Q(author__from_user=request.user) | Q(author__to_user=request.user)).order_by('-date_posted')
-    post = Post.objects.all().order_by('-date_modified')
+    post = Post.objects.filter(Q(author=request.user.id) | Q(author__from_user=request.user.id) | Q(author__to_user=request.user.id)).order_by('-date_modified').distinct()
+    # post = Post.objects.all().order_by('-date_modified')
     media = MEDIA_URL
     paginator = Paginator(post, 2) 
     page_number = request.GET.get('page')
@@ -87,10 +87,10 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         try:
             form.instance.author = self.request.user
             super(PostUpdateView, self).form_valid(form)
+            print("HELLO")
             messages.success(self.request, 'You have successfully updated the post')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
         except:
-            pass
             messages.error(self.request, 'You cannot update the post. Please retry!!!')
             return redirect(reverse_lazy('post-update', kwargs={'pk': self.object.uuid}))
 
