@@ -25,8 +25,3 @@ class Friend(models.Model, LoginRequiredMixin):
         return self.to_user.email
 
 
-class Share(models.Model):
-    from_user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='friend_user')
-    to_user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='logged_in_user')
-    shared_content = Post.objects.all()
-    is_friend = models.BooleanField(default=False)
