@@ -20,8 +20,8 @@ User = get_user_model()
 @login_required(login_url='login/')
 def friend_list(request):
     context = {
-        'results_to_user': Friend.objects.all(),
-        'results_from_user': Friend.objects.filter(from_user=request.user.id),
+        'results_to_user': Friend.objects.exclude(from_user=request.user).distinct(),
+        'results_from_user': Friend.objects.exclude(to_user=request.user).distinct(),
     }
     return render(request, 'friend/friend_list.html', context)
 
