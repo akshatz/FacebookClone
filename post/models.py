@@ -41,7 +41,7 @@ class Post(models.Model):
     content = models.TextField(verbose_name="Content:")
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="profile_pics", null=True, blank=True, verbose_name="Image:")
+    image = models.ImageField(upload_to="posts", null=True, blank=True, verbose_name="Image:")
     date_modified = models.DateTimeField(auto_now=True, blank=True)
     video = models.FileField(upload_to='videos/',blank=True, null=True, verbose_name="video limited to mp4:")
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
