@@ -21,12 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'c(i%fn^1j#)@(v+b#42f&_k9h(f=p&iulxz&trl9l8v3nn9@*0'
+# SECRET_KEY = '9d5a4c7fcc19a51d03859e1da78d93c0705414daf545078e'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG=(os.environ.get('DEBUG_VALUE'), True)
+# DEBUG=(os.environ.get('DEBUG_VALUE'), True)
+DEBUG=True
 
 ALLOWED_HOSTS = ['vast-springs-06779.herokuapp.com']
 
@@ -85,13 +85,17 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sample_blog',
-        'USER': 'akshatz',
-        'PASSWORD': '1234root',
-        'HOST': 'localhost',
-        'PORT': '3306'
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'sample_blog',
+    #     'USER': 'akshatz',
+    #     'PASSWORD': '1234root',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306'
+    # }
 }
 
 # Password validation
@@ -153,8 +157,8 @@ LOGIN_URL = 'login'
 # EMAIL BACKENDS
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com' 
-EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
+EMAIL_HOST_USER = 'akshatzala@gmail.com'
+EMAIL_HOST_PASSWORD = 'zcnezyaolyfgiavr'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_CONFIRMATION_PERIOD_DAYS = 7
