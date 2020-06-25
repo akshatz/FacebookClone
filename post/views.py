@@ -22,7 +22,7 @@ from django.core.paginator import Paginator
 @login_required
 def home_view(request):
     """Display all the post of friends and own posts on the dashboard"""
-    # post = Post.objects.filter(Q(author=request.user) | Q(author__from_user=request.user) | Q(author__to_user=request.user)).order_by('-date_posted')
+    # post = Post.objects.filter(Q(author=request.user.id) | Q(author__from_user=request.user.id) | Q(author__to_user=request.user.id)).order_by('-date_modified').distinct()
     post = Post.objects.all().order_by('-date_modified')
     media = MEDIA_URL
     paginator = Paginator(post, 2) 
