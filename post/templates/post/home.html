@@ -1,4 +1,6 @@
 {% extends "post/base.html" %}
+{% load hitcount_tags %}
+
 {% block content %}
 	<!--
 		display all alert 
@@ -34,6 +36,7 @@
 					  <source src="{{media}}{{p.video}}" type='video/mp4'/>
 				  </video>
 			  {% endif%}
+			
 		  </div>
 		  <ul>
 			{% for user_p in users %}

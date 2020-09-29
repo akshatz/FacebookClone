@@ -11,7 +11,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from post.models import User
 from post.views import user
-from friend.models import Friend, Share
+from .models import Friend
 from http.client import HTTPResponse
 
 User = get_user_model()
@@ -20,7 +20,7 @@ User = get_user_model()
 @login_required(login_url='login/')
 def friend_list(request):
     context = {
-        'results_to_user': Friend.objects.filter(from_user=request.user.id),
+        'results_to_user': Friend.objects.filter(from_user=request.user.id).exclude(request.user.id),
         'results_from_user': Friend.objects.filter(to_user=request.user.id),
     }
     return render(request, 'friend/friend_list.html', context)

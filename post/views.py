@@ -14,10 +14,16 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from friend.models import Friend, Share
+from friend.models import Friend
 from django.db.models import Q
 user = get_user_model()
 from django.core.paginator import Paginator
+
+ALLOWED_EXTENSIONS = ['mp4']
+
+# function to denote allowed file formats-jpg, jpeg and png
+def allowed_file(file):
+    return ('.' in file and file.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS)
 
 @login_required
 def home_view(request):
@@ -57,18 +63,19 @@ class PostCreateView(LoginRequiredMixin, CreateView):
             image
             video
     """
-    
-    fields = ['title', 'content', 'image', 'video']
-    model = Post
-    success_url = '/post'
+    try:
+        fields = ['title', 'content', 'image', 'video']
+        model = Post
+        success_url = '/post'
 
-    def form_valid(self, form):
-        try:
-            form.instance.author = self.request.user
-            return super(PostCreateView, self).form_valid(form)
-        except:
-            return redirect(reverse_lazy('post'))
-
+        def form_valid(self, form):
+            try:
+                form.instance.author = self.request.user
+                return super(PostCreateView, self).form_valid(form)
+            except:
+                return redirect(reverse_lazy('post'))
+    except:
+        ret
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
