@@ -95,7 +95,7 @@ def profile(request):
             return render(request, 'users/profile.html', dict(u_form=u_form, p_form=p_form))
 
 @login_required(login_url='/login')
-wwdef search(request):
+def search(request):
     """Search feature used to search friends """
     if request.method == 'GET':
         query = request.GET.get('q')
