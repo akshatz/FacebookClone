@@ -2,4 +2,4 @@ build:
     docker:
       web: Dockerfile
 run:
-    web: bundle exec akshatz/social_networking_site -C django_project/manage
+    web: bundle exec akshatz/social_networking_site -C django_project/manage.py
